@@ -1,7 +1,6 @@
 body {
     font-family: "Inter", sans-serif;
     font-style: normal;
-
 }
 
 .button {
@@ -72,6 +71,28 @@ body {
     color: #3A5059;
 }
 
+.modal {
+    padding: 15px;
+    margin: 37px;
+    border-radius: 5px;
+    border-style: solid;
+    border-width: thin;
+    font-weight: lighter;
+    font-size: 15px;
+    color: #3A5059;
+}
+
+.modal-header {
+    font-size: 20px;
+    color: #3A5059;
+}
+
+.modal label {
+    font-size: 15px;
+    font-weight: lighter;
+    color: #3A5059;
+}
+
 .jumbotron {
     margin: 0;
     padding: 27px;
@@ -95,11 +116,6 @@ body {
     background: transparent;
     height: 63px;
     margin: 15px 0px 0px 10px; 
-}
-
-.navbar-toggler {
-    background: transparent;
-    border-color: black; 
 }
 
 .navbar a {

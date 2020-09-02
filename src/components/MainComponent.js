@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Header from './HeaderComponent';
+import Home from './HomeComponent';
 import Tasks from './TaskComponent';
 import TaskInfo from './TaskInfoComponent';
 import { Switch, Route, Redirect, withRouter } from 'react-router-dom';
@@ -24,23 +25,31 @@ const mapDispatchToProps = {
 };
 
 class Main extends Component {
+
     componentDidMount() {
         this.props.fetchTasks();
     }
 
     render() {        
 
-        const TaskWithId = ({match}) => {
+        const HomePage = () => {
+            return (
+                <Home />
+            );
+        }
 
+        const TaskWithId = ({match}) => {
             return (
                 this.props.auth.isAuthenticated
                 ?
                 <TaskInfo
-                    task={this.props.tasks.tasks} 
+                    task={this.props.tasks.tasks.filter(task => task._id === match.params.taskId)[0]} 
+                    putTask={this.props.putTask}
+                    deleteTask={this.props.deleteTask}
                 />
                 :
                 <div>
-                    <p>No access</p>
+                    <h4>Not authorized!</h4>
                 </div>
             );
         };
@@ -50,11 +59,14 @@ class Main extends Component {
             this.props.auth.isAuthenticated
               ? <Component {...props} />
               : <Redirect to={{
-                  pathname: '/',
+                  pathname: '/home',
                   state: { from: props.location }
                 }} />
           )} />
         );
+        
+        //const arr = this.props.tasks.tasks;
+        //alert(arr);
 
         return (
             <div>
@@ -63,9 +75,10 @@ class Main extends Component {
                   logoutUser={this.props.logoutUser} 
                 />
                 <Switch>
+                    <Route path='/home' component={HomePage} />
                     <PrivateRoute exact path='/tasks' component={() => <Tasks tasks={this.props.tasks} postTask={this.props.postTask} putTask={this.props.putTask} deleteTask={this.props.deleteTask} />} />
-                    <PrivateRoute path='/tasks/:id' component={TaskWithId} />
-                    <Redirect to='/' />
+                    <PrivateRoute path='/tasks/:taskId' component={TaskWithId} />
+                    <Redirect to='/home' />
                 </Switch>
             </div>
         );

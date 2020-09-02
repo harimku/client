@@ -1,6 +1,5 @@
 import React from 'react';
 import { Media, Button } from 'reactstrap';
-import { Loading } from './LoadingComponent';
 
 function RenderTask({task, putTask, deleteTask}) {
     return (
@@ -33,26 +32,6 @@ function RenderTask({task, putTask, deleteTask}) {
 }
 
 function TaskInfo(props) {
-    if (props.isLoading) {
-        return (
-            <div className="container">
-                <div className="row">
-                    <Loading />
-                </div>
-            </div>
-        );
-    }
-    if (props.errMess) {
-        return (
-            <div className="container">
-                <div className="row">
-                    <div className="col">
-                        <h4>{props.errMess}</h4>
-                    </div>
-                </div>
-            </div>
-        );
-    }
     if (props.task) {
         return (
             <div className="container">

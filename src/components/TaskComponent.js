@@ -77,17 +77,17 @@ class Tasks extends Component {
                             {tasks}
                         </Media>
                     </div>
-                    <div className="row">
-                        <Media list>
+                    <div className="row-content">
+                        <Media>
                             <br/>
                             <h4>Add Tasks </h4>
                             <LocalForm onSubmit={values => this.handleSubmit(values)}>
                                 <div className="form-group">
-                                <Label htmlFor="name">Name</Label>
-                                    <Control.textarea model=".name" id="name" name="name"
-                                        rows="1"
-                                        className="form-control"
-                                    />
+                                    <Label htmlFor="name">Name</Label>
+                                        <Control.textarea model=".name" id="name" name="name"
+                                            rows="1"
+                                            className="form-control"
+                                        />
                                 </div>
                                 <div className="form-group">
                                     <Label htmlFor="description">Description</Label>

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Nav, Navbar, NavItem, Jumbotron, Button, Modal, ModalHeader, ModalBody,
+import { Nav, Navbar, Jumbotron, Button, Modal, ModalHeader, ModalBody,
     Form, FormGroup, Input, Label } from 'reactstrap';
 import { NavLink } from 'react-router-dom';
 
@@ -39,28 +39,23 @@ class Header extends Component {
                 <Jumbotron fluid>
                     <div className="container">
                         <div className="row-center">
-                            <div className="col-sm-4">
+                            <div className="col-sm-2">
                                 <img src="/assets/images/logo.png" height="100" width="100" alt="Melomato Logo" />
                             </div>
-                            <div className="col-sm-8">
+                            <div>
                                 <h2>Melomato To-do App</h2>
-                                <h4>a better way to manage your tasks</h4>
                             </div>
                         </div>
                     </div>
                 </Jumbotron>
 
-                <Navbar light sticky="top" expand="sm">
+                <Navbar light sticky="top">
                     <div className="container">
                         <Nav navbar>
-                            <NavItem>
-                                <NavLink className="nav-link" to="/tasks">
-                                    <i className="fa fa-check-circle fa-sm" /><h3>My Tasks</h3>
-                                </NavLink>
-                            </NavItem>
-                        </Nav>
-                        <Nav className="ml-auto" navbar>
-                            <NavItem>
+                            <NavLink className="nav-link" to="/tasks">
+                                <h3>My Tasks</h3>
+                            </NavLink>
+                            <div>
                                 { !this.props.auth.isAuthenticated ?
                                     <Button outline onClick={this.toggleModal}>
                                         <i className="fa fa-sign-in fa-lg" /> Login
@@ -71,20 +66,21 @@ class Header extends Component {
                                     </Button>
                                     :
                                     <div>
-                                    <div className="navbar-text mr-3">Username: {this.props.auth.user.username}</div>
-                                    <Button outline onClick={this.handleLogout}>
-                                        <span className="fa fa-sign-out fa-lg"></span> Logout
-                                        {this.props.auth.isFetching ?
-                                            <span className="fa fa-spinner fa-pulse fa-fw"></span>
-                                            : null
-                                        }
-                                    </Button>
+                                    <div className="navbar-text">Username: {this.props.auth.user.username}</div>
+                                        <Button outline onClick={this.handleLogout}>
+                                            <span className="fa fa-sign-out fa-lg"></span> Logout
+                                            {this.props.auth.isFetching ?
+                                                <span className="fa fa-spinner fa-pulse fa-fw"></span>
+                                                : null
+                                            }
+                                        </Button>
                                     </div>
                                 }
-                            </NavItem>
+                            </div>
                         </Nav>
                     </div>
                 </Navbar>
+                <br/>
 
                 <Modal isOpen={this.state.isModalOpen} toggle={this.toggleModal}>
                     <ModalHeader toggle={this.toggleModal}>Login</ModalHeader>
