@@ -8,7 +8,7 @@ function RenderTask({ task, updateTask, deleteTask }) {
         <Media>
             <Media body className="ml-5">
                 <Media heading>{task.name}</Media>
-                <p>Task: {task.description}</p>
+                <p>Description: {task.description}</p>
                 <p>Status: {task.status}</p>
                 <p>Due: {task.duedate}</p>
                 <Button onClick={() => updateTask(task._id)}>
@@ -74,7 +74,45 @@ class Tasks extends Component {
                             {tasks}
                         </Media>
                     </div>
-                    
+                    <div className="row">
+                        <Media list>
+                            <br/>
+                            <h4>Add Tasks </h4>
+                            <LocalForm onSubmit={values => this.handleSubmit(values)}>
+                                <div className="form-group">
+                                <Label htmlFor="name">Name</Label>
+                                    <Control.textarea model=".name" id="name" name="name"
+                                        rows="1"
+                                        className="form-control"
+                                    />
+                                </div>
+                                <div className="form-group">
+                                    <Label htmlFor="description">Description</Label>
+                                    <Control.textarea model=".description" id="description" name="description"
+                                        rows="1"
+                                        className="form-control"
+                                    />
+                                </div>
+                                <div className="form-group">
+                                    <Label htmlFor="type">Type</Label>
+                                    <Control.textarea model=".type" id="type" name="type"
+                                        rows="1"
+                                        className="form-control"
+                                    />
+                                </div>
+                                <div className="form-group">
+                                    <Label htmlFor="status">Status</Label>
+                                    <Control.textarea model=".status" id="status" name="status"
+                                        rows="1"
+                                        className="form-control"
+                                    />
+                                </div>
+                                <Button type="submit" color="primary">
+                                    Create Task
+                                </Button>
+                            </LocalForm>
+                        </Media>
+                    </div>
                 </div>
             );
         } else {

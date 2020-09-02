@@ -47,6 +47,12 @@ body {
     font-size: 15px; 
 }
 
+.media-heading {
+    font-family: "Inter", sans-serif;
+    font-size: 18px; 
+    color: #FF7171;
+}
+
 .media .button {
     font-weight: light;
     font-size: 30px;
