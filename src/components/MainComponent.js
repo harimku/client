@@ -4,7 +4,7 @@ import Tasks from './TaskComponent';
 import TaskInfo from './TaskInfoComponent';
 import { Switch, Route, Redirect, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { postTask, putTask, deleteTask, fetchTasks, loginUser, logoutUser } from '../redux/ActionCreators';
+import { fetchTask, postTask, putTask, deleteTask, fetchTasks, loginUser, logoutUser } from '../redux/ActionCreators';
 
 const mapStateToProps = state => {
     return {
@@ -18,6 +18,7 @@ const mapDispatchToProps = {
     logoutUser: () => (logoutUser()),
     fetchTasks: () => (fetchTasks()),
     postTask: (name, description, type, status) => (postTask(name, description, type, status)),
+    fetchTask: (taskId) => (fetchTask(taskId)),
     putTask: (taskId) => (putTask(taskId)),
     deleteTask: (taskId) => (deleteTask(taskId))
 };
@@ -28,14 +29,19 @@ class Main extends Component {
     }
 
     render() {        
+
         const TaskWithId = ({match}) => {
+
             return (
+                this.props.auth.isAuthenticated
+                ?
                 <TaskInfo
-                    task={this.props.tasks.tasks.filter(task => task._id === match.params.taskId)[0]}
-                    isLoading={this.props.tasks.isLoading}
-                    errMess={this.props.tasks.errMess}
-                    postTask={this.props.postTask}
+                    task={this.props.tasks.tasks} 
                 />
+                :
+                <div>
+                    <p>No access</p>
+                </div>
             );
         };
 
@@ -57,8 +63,8 @@ class Main extends Component {
                   logoutUser={this.props.logoutUser} 
                 />
                 <Switch>
-                    <PrivateRoute exact path="/tasks" component={() => <Tasks tasks={this.props.tasks} postTask={this.props.postTask} putTask={this.props.putTask} deleteTask={this.props.deleteTask} />} />
-                    <PrivateRoute path='/tasks/:taskId' component={TaskWithId} />
+                    <PrivateRoute exact path='/tasks' component={() => <Tasks tasks={this.props.tasks} postTask={this.props.postTask} putTask={this.props.putTask} deleteTask={this.props.deleteTask} />} />
+                    <PrivateRoute path='/tasks/:id' component={TaskWithId} />
                     <Redirect to='/' />
                 </Switch>
             </div>

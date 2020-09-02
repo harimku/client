@@ -55,7 +55,7 @@ class Header extends Component {
                         <Nav navbar>
                             <NavItem>
                                 <NavLink className="nav-link" to="/tasks">
-                                    <i className="fa fa-check-circle fa-sm" />My Tasks
+                                    <i className="fa fa-check-circle fa-sm" /><h3>My Tasks</h3>
                                 </NavLink>
                             </NavItem>
                         </Nav>

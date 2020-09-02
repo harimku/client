@@ -36,7 +36,7 @@ body {
 }
 
 .media {
-    margin: 0, 10px;
+    margin: 0px, 10px;
     padding: 20px;
     background: transparent;
     border-style: solid;
@@ -53,10 +53,23 @@ body {
     color: #FF7171;
 }
 
-.media .button {
-    font-weight: light;
-    font-size: 30px;
-    color: #FF7171;
+.media span {
+    padding: 5px;
+    border-style: solid;
+    border-width: thin;
+    font-weight: lighter;
+    font-size: 15px;
+    color: #3A5059;
+}
+
+.media button {
+    padding: 5px;
+    margin: 7px;
+    border-style: solid;
+    border-width: thin;
+    font-weight: lighter;
+    font-size: 15px;
+    color: #3A5059;
 }
 
 .jumbotron {

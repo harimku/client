@@ -1,17 +1,33 @@
 import React from 'react';
-import { Card, CardText, CardBody, Button } from 'reactstrap';
+import { Media, Button } from 'reactstrap';
 import { Loading } from './LoadingComponent';
 
-function RenderTask({task, taskId, postTask, putTask, deleteTask}) {
+function RenderTask({task, putTask, deleteTask}) {
     return (
-        <div className="col-md-5 m-1">
-            <Card>
-                <CardBody>
-                    <CardText>{taskId}</CardText>
-                    <CardText>{task.name}</CardText>
-                    <CardText>{task.description}</CardText>
-                </CardBody>
-            </Card>
+        <div className="container">
+            <div className="row-content">
+                <div className="col-12">
+                    <h3>Edit Task</h3>
+                    <hr />
+                </div>
+            </div>
+            <div className="row-content">
+                <Media>
+                    <Media body className="ml-5">
+                        <Media heading>{task.name}</Media>
+                        <p>taskID: {task._id}</p>
+                        <p>Description: {task.description}</p>
+                        <p>Status: {task.status}</p>
+                        <p>Due: {task.duedate}</p>
+                        <Button onClick={() => putTask(task._id)}>
+                            Update Task
+                        </Button>
+                        <Button onClick={() => deleteTask(task._id)}>
+                            Delete Task
+                        </Button>
+                    </Media>
+                </Media>
+            </div>
         </div>
     );
 }
@@ -42,9 +58,7 @@ function TaskInfo(props) {
             <div className="container">
                 <div className="row">
                     <RenderTask 
-                        task={props.task} 
-                        taskId={props.task._id}
-                        postTask={props.postTask}
+                        task={props.task}
                         putTask={props.putTask}
                         deleteTask={props.deleteTask}
                     />

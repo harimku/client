@@ -1,19 +1,21 @@
 import React, { Component } from 'react';
 import { Media, Button, Label  } from 'reactstrap';
 import { Control, LocalForm } from 'react-redux-form';
+import { Link } from 'react-router-dom';
 import { Loading } from './LoadingComponent';
 
-function RenderTask({ task, updateTask, deleteTask }) {
+function RenderTask({ task, deleteTask }) {
     return (
         <Media>
             <Media body className="ml-5">
                 <Media heading>{task.name}</Media>
+                <p>taskID: {task._id}</p>
                 <p>Description: {task.description}</p>
                 <p>Status: {task.status}</p>
                 <p>Due: {task.duedate}</p>
-                <Button onClick={() => updateTask(task._id)}>
-                    Update Task
-                </Button>
+                <span>
+                    <Link to={`/tasks/${task._id}`}>Update Task</Link>
+                </span>
                 <Button onClick={() => deleteTask(task._id)}>
                     Delete Task
                 </Button>
@@ -21,6 +23,7 @@ function RenderTask({ task, updateTask, deleteTask }) {
         </Media>
     );
 }
+
 
 class Tasks extends Component {
 
@@ -69,7 +72,7 @@ class Tasks extends Component {
                             <hr />
                         </div>
                     </div>
-                    <div className="row">
+                    <div className="row-content">
                         <Media list>
                             {tasks}
                         </Media>

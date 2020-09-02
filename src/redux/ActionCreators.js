@@ -236,3 +236,33 @@ export const deleteTask = taskId => dispatch => {
     })
     .catch(error => dispatch(tasksFailed(error.message)));
 };
+
+export const fetchTask = taskId => dispatch => {
+
+    const bearer = 'Bearer ' + localStorage.getItem('token');
+
+    return fetch(baseUrl + 'tasks/' + taskId, {
+        headers: {
+            'Authorization': bearer
+        },
+        credentials: "same-origin"
+    })
+    .then(response => {
+            if (response.ok) {
+                return response;
+            } else {
+                console.log('hi');
+                const error = new Error(`Error ${response.status}: ${response.statusText}`);
+                error.response = response;
+                throw error;
+            }
+        },
+        error => { throw error; }
+    )
+    .then(response => response.json())
+    .then(tasks => {
+        console.log('Task: ', tasks);
+        dispatch(addTasks(tasks));
+    })
+    .catch(error => dispatch(tasksFailed(error.message)));
+};
