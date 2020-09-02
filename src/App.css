@@ -1,38 +1,127 @@
-.App {
-  text-align: center;
+body {
+    font-family: "Inter", sans-serif;
+    font-style: normal;
+
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.button {
+    font-weight: light;
+    font-size: 15px;
+    text-align: center;
+    align-items: center;
+    letter-spacing: 0.3px;
+    color: #FF7171;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.card {
+    border: transparent;
+    position: relative;
+    text-align: center;
+    align-items: center;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.card .card-stuff {
+    font-family: "Inter", sans-serif;
+    font-style: normal;
+    color: #3A5059;
+    font-weight: light;
+    font-size: 15px;
+    text-align: center;
+    align-items: center;
 }
 
-.App-link {
-  color: #61dafb;
+.center {
+    justify-content: center;
+    align-items: center;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.media {
+    margin: 0, 10px;
+    padding: 20px;
+    background: transparent;
+    border-style: solid;
+    border-width: thin;
+    border-color: #3A5059;
+    font-family: "Inter", sans-serif;
+    font-weight: lighter; 
+    font-size: 15px; 
+}
+
+.media .button {
+    font-weight: light;
+    font-size: 30px;
+    color: #FF7171;
+}
+
+.jumbotron {
+    margin: 0;
+    padding: 27px;
+    background: transparent;
+    font-size: 20px;
+}
+
+.jumbotron h2{
+    font-family: "Inter", sans-serif;
+    font-weight: lighter; 
+    color: #3A5059;
+}
+
+.jumbotron h4{
+    font-family: "Inter", sans-serif;
+    font-weight: lighter; 
+    color: #3A5059;
+}
+
+.navbar-custom {
+    background: transparent;
+    height: 63px;
+    margin: 15px 0px 0px 10px; 
+}
+
+.navbar-toggler {
+    background: transparent;
+    border-color: black; 
+}
+
+.navbar a {
+    color: #FF7171;
+    font-size: 14px; 
+}
+
+.navbar .navbar-nav .active a {
+    color: #3A5059; 
+}
+
+.row-content {
+    margin: 40px;
+    padding: 0px, 20px;
+}
+
+.row-content h2, h3, h4 {
+    font-family: "Inter", sans-serif;
+    font-weight: lighter; 
+}
+
+.site-footer {
+    background-color: white;
+    margin: 0 0 0 0;
+    padding: 30px 0px 0px 0px;
+    font-family: "Inter", sans-serif;
+    font-style: normal;
+    color: black;
+    text-align: center; 
+}
+
+.site-footer .list-unstyled a {
+    color: #989898; 
+}
+
+.site-footer .btn-custom {
+    background-color: white;
+    border-color: #989898;
+    color: #FF7171; 
+}
+
+.site-footer .form-custom {
+    border-color: #989898; 
 }
