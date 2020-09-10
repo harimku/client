@@ -11,5 +11,6 @@ export const TASKS_LOADING = 'TASKS_LOADING';
 export const TASKS_FAILED = 'TASKS_FAILED';
 export const ADD_TASK = 'ADD_TASK';
 
-export const UPDATE_TASKS = 'UPDATE_TASKS';
-export const DELETE_TASKS = 'DELETE_TASKS';
+export const GET_SINGLE = 'GET_SINGLE';
+export const UPDATE_TASK = 'UPDATE_TASK';
+export const REMOVE_TASK = 'REMOVE_TASK';

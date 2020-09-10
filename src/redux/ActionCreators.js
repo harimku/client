@@ -102,14 +102,14 @@ export const addTask = (task) => ({
     payload: task
 });
 
-export const updateTasks = tasks => ({
-    type: ActionTypes.UPDATE_TASKS,
-    payload: tasks
+export const updateTask = task => ({
+    type: ActionTypes.UPDATE_TASK,
+    payload: task
 });
 
-export const deleteTasks = tasks => ({
-    type: ActionTypes.DELETE_TASKS,
-    payload: tasks
+export const removeTask = task => ({
+    type: ActionTypes.REMOVE_TASK,
+    payload: task
 });
 
 export const fetchTasks = () => dispatch => {
@@ -173,23 +173,31 @@ export const postTask = (name, description, type, status) => dispatch => {
     .then(response => dispatch(addTask(response)))
     .catch(error => {
         dispatch(tasksFailed(error.message));
-        console.log('ERROR!!!!');
     });
 };
 
-export const putTask = taskId => dispatch => {
+export const putTask = (id, description, type, status) => dispatch => {
+
+    const newTask = {
+        description: description,
+        type: type,
+        status: status
+    };
 
     const bearer = 'Bearer ' + localStorage.getItem('token');
 
-    return fetch(baseUrl + 'tasks/' + taskId, {
+    return fetch(baseUrl + 'tasks/' + id, {
         method: "PUT",
         headers: {
-          "Authorization": bearer
+          "Authorization": bearer,
+          "Content-Type": "application/json"
         },
+        body: JSON.stringify(newTask),
         credentials: "same-origin"
     })
     .then(response => {
             if (response.ok) {
+                console.log(response);
                 return response;
             } else {
                 const error = new Error(`Error ${response.status}: ${response.statusText}`);
@@ -200,9 +208,9 @@ export const putTask = taskId => dispatch => {
         error => { throw error; }
     )
     .then(response => response.json())
-    .then(tasks => {
-        console.log('Task Updated', tasks);
-        dispatch(updateTasks(tasks));
+    .then(task => {
+        console.log('Task Updated', task);
+        dispatch(updateTask(task));
     })
     .catch(error => dispatch(tasksFailed(error.message)));
 }
@@ -230,9 +238,9 @@ export const deleteTask = taskId => dispatch => {
         error => { throw error; }
     )
     .then(response => response.json())
-    .then(tasks => {
-        console.log('Task Deleted', tasks);
-        dispatch(deleteTasks(tasks));
+    .then(task => {
+        console.log('Task Deleted', task);
+        dispatch(removeTask(task));
     })
     .catch(error => dispatch(tasksFailed(error.message)));
 };
@@ -260,9 +268,14 @@ export const fetchTask = taskId => dispatch => {
         error => { throw error; }
     )
     .then(response => response.json())
-    .then(tasks => {
-        console.log('Task: ', tasks);
-        dispatch(addTasks(tasks));
+    .then(task => {
+        console.log('Task: ', task);
+        dispatch(getSingle(task));
     })
     .catch(error => dispatch(tasksFailed(error.message)));
 };
+
+export const getSingle = (task) => ({
+    type: ActionTypes.GET_SINGLE,
+    payload: task
+});

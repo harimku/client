@@ -8,7 +8,8 @@ export const ConfigureStore = () => {
     const store = createStore(
         combineReducers({
             tasks: Tasks,
-            auth: Auth
+            auth: Auth,
+            single: Tasks
         }),
         applyMiddleware(thunk, logger)
     );

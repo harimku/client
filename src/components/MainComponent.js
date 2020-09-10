@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import Header from './HeaderComponent';
-import Home from './HomeComponent';
 import Tasks from './TaskComponent';
 import TaskInfo from './TaskInfoComponent';
 import { Switch, Route, Redirect, withRouter } from 'react-router-dom';
@@ -20,7 +19,7 @@ const mapDispatchToProps = {
     fetchTasks: () => (fetchTasks()),
     postTask: (name, description, type, status) => (postTask(name, description, type, status)),
     fetchTask: (taskId) => (fetchTask(taskId)),
-    putTask: (taskId) => (putTask(taskId)),
+    putTask: (taskId, name, description, type, status) => (putTask(taskId, name, description, type, status)),
     deleteTask: (taskId) => (deleteTask(taskId))
 };
 
@@ -28,22 +27,19 @@ class Main extends Component {
 
     componentDidMount() {
         this.props.fetchTasks();
+        this.props.fetchTask("5f5064a57c32abda28460c29");
     }
 
-    render() {        
-
-        const HomePage = () => {
-            return (
-                <Home />
-            );
-        }
+    render() {     
 
         const TaskWithId = ({match}) => {
             return (
                 this.props.auth.isAuthenticated
                 ?
                 <TaskInfo
-                    task={this.props.tasks.tasks.filter(task => task._id === match.params.taskId)[0]} 
+                    task={this.props.tasks.task}
+                    taskId={match.params.taskId}
+                    fetchTask={this.props.fetchTask}
                     putTask={this.props.putTask}
                     deleteTask={this.props.deleteTask}
                 />
@@ -59,15 +55,12 @@ class Main extends Component {
             this.props.auth.isAuthenticated
               ? <Component {...props} />
               : <Redirect to={{
-                  pathname: '/home',
+                  pathname: '/',
                   state: { from: props.location }
                 }} />
           )} />
         );
         
-        //const arr = this.props.tasks.tasks;
-        //alert(arr);
-
         return (
             <div>
                 <Header auth={this.props.auth} 
@@ -75,10 +68,9 @@ class Main extends Component {
                   logoutUser={this.props.logoutUser} 
                 />
                 <Switch>
-                    <Route path='/home' component={HomePage} />
                     <PrivateRoute exact path='/tasks' component={() => <Tasks tasks={this.props.tasks} postTask={this.props.postTask} putTask={this.props.putTask} deleteTask={this.props.deleteTask} />} />
                     <PrivateRoute path='/tasks/:taskId' component={TaskWithId} />
-                    <Redirect to='/home' />
+                    <Redirect to='/' />
                 </Switch>
             </div>
         );

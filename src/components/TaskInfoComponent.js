@@ -1,51 +1,69 @@
-import React from 'react';
-import { Media, Button } from 'reactstrap';
+import React, { Component } from 'react';
+import { Media, Button, Label  } from 'reactstrap';
+import { Control, LocalForm } from 'react-redux-form';
 
-function RenderTask({task, putTask, deleteTask}) {
-    return (
-        <div className="container">
-            <div className="row-content">
-                <div className="col-12">
-                    <h3>Edit Task</h3>
-                    <hr />
-                </div>
-            </div>
-            <div className="row-content">
-                <Media>
-                    <Media body className="ml-5">
-                        <Media heading>{task.name}</Media>
-                        <p>taskID: {task._id}</p>
-                        <p>Description: {task.description}</p>
-                        <p>Status: {task.status}</p>
-                        <p>Due: {task.duedate}</p>
-                        <Button onClick={() => putTask(task._id)}>
-                            Update Task
-                        </Button>
-                        <Button onClick={() => deleteTask(task._id)}>
-                            Delete Task
-                        </Button>
-                    </Media>
-                </Media>
-            </div>
-        </div>
-    );
-}
 
-function TaskInfo(props) {
-    if (props.task) {
-        return (
-            <div className="container">
-                <div className="row">
-                    <RenderTask 
-                        task={props.task}
-                        putTask={props.putTask}
-                        deleteTask={props.deleteTask}
-                    />
-                </div>
-            </div>
-        );
+class TaskInfo extends Component {
+    
+    constructor(props) {
+        super(props);
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
-    return <div />;
+
+    handleSubmit(values) {
+        this.props.putTask(this.props.task._id, values.description, values.type, values.status);
+    }
+
+    render() {
+        if (this.props.task) {
+            return (
+                <div className="container">
+                    <div className="row-content">
+                        <div className="col-12">
+                            <h3>Edit Task : {this.props.task.name} </h3>
+                            <hr />
+                        </div>
+                    </div>
+                    <div className="row-content">
+                        <Media>
+                            <LocalForm onSubmit={values => this.handleSubmit(values)}>
+                                <div className="form-group">
+                                    <Label htmlFor="description">Description</Label>
+                                    <Control.textarea model=".description" id="description" name="description"
+                                        rows="1"
+                                        className="form-control"
+                                    />
+                                </div>
+                                <div className="form-group">
+                                    <Label htmlFor="type">Type</Label>
+                                    <Control.textarea model=".type" id="type" name="type"
+                                        rows="1"
+                                        className="form-control"
+                                    />
+                                </div>
+                                <div className="form-group">
+                                    <Label htmlFor="status">Status</Label>
+                                    <Control.textarea model=".status" id="status" name="status"
+                                        rows="1"
+                                        className="form-control"
+                                    />
+                                </div>
+                                <Button type="submit" color="primary">
+                                    Update Task
+                                </Button>
+                            </LocalForm>
+                        </Media>
+                    </div>
+                </div>
+            )
+        } else {
+            return (
+                <div>
+                    Something failed.
+                </div>
+            );
+        }
+    }
 }
 
 export default TaskInfo;
