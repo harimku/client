@@ -11,16 +11,16 @@ class TaskInfo extends Component {
     }
 
     handleSubmit(values) {
-        this.props.putTask(this.props.task._id, values.description, values.type, values.status);
+        this.props.putTask(this.props.id, values.description, values.type, values.status);
     }
 
     render() {
-        if (this.props.task) {
+        if (this.props.id) {
             return (
                 <div className="container">
                     <div className="row-content">
                         <div className="col-12">
-                            <h3>Edit Task : {this.props.task.name} </h3>
+                            <h3>Edit Task : {this.props.id} </h3>
                             <hr />
                         </div>
                     </div>
@@ -51,6 +51,9 @@ class TaskInfo extends Component {
                                 <Button type="submit" color="primary">
                                     Update Task
                                 </Button>
+                                <Button onClick={() => this.props.deleteTask(this.props.id)}>
+                                    Delete Task
+                                </Button>
                             </LocalForm>
                         </Media>
                     </div>
@@ -59,7 +62,7 @@ class TaskInfo extends Component {
         } else {
             return (
                 <div>
-                    Something failed.
+                    d
                 </div>
             );
         }

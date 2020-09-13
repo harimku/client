@@ -9,8 +9,9 @@ function RenderTask({ task, deleteTask }) {
         <Media>
             <Media body className="ml-5">
                 <Media heading>{task.name}</Media>
-                <p>taskID: {task._id}</p>
+                <p>task ID: {task._id}</p>
                 <p>Description: {task.description}</p>
+                <p>Type: {task.type}</p>
                 <p>Status: {task.status}</p>
                 <p>Due: {task.duedate}</p>
                 <span>

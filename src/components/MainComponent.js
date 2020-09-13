@@ -4,7 +4,7 @@ import Tasks from './TaskComponent';
 import TaskInfo from './TaskInfoComponent';
 import { Switch, Route, Redirect, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { fetchTask, postTask, putTask, deleteTask, fetchTasks, loginUser, logoutUser } from '../redux/ActionCreators';
+import { fetchTask, postTask, putTask, deleteTask, fetchTasks, registerUser, loginUser, logoutUser } from '../redux/ActionCreators';
 
 const mapStateToProps = state => {
     return {
@@ -14,6 +14,7 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = {
+    registerUser: creds => (registerUser(creds)),
     loginUser: creds => (loginUser(creds)),
     logoutUser: () => (logoutUser()),
     fetchTasks: () => (fetchTasks()),
@@ -27,7 +28,7 @@ class Main extends Component {
 
     componentDidMount() {
         this.props.fetchTasks();
-        this.props.fetchTask("5f5064a57c32abda28460c29");
+        //this.props.fetchTask("5f5064a57c32abda28460c29");
     }
 
     render() {     
@@ -37,8 +38,7 @@ class Main extends Component {
                 this.props.auth.isAuthenticated
                 ?
                 <TaskInfo
-                    task={this.props.tasks.task}
-                    taskId={match.params.taskId}
+                    id={match.params.taskId}
                     fetchTask={this.props.fetchTask}
                     putTask={this.props.putTask}
                     deleteTask={this.props.deleteTask}
@@ -64,6 +64,7 @@ class Main extends Component {
         return (
             <div>
                 <Header auth={this.props.auth} 
+                  registerUser={this.props.registerUser}
                   loginUser={this.props.loginUser} 
                   logoutUser={this.props.logoutUser} 
                 />

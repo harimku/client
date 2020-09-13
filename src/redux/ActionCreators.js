@@ -1,6 +1,63 @@
 import * as ActionTypes from './ActionTypes';
 import { baseUrl } from '../shared/baseUrl';
 
+export const requestRegister = creds => {
+    return {
+        type: ActionTypes.REGISTER_REQUEST,
+        creds
+    }
+}
+  
+export const receiveRegister = response => {
+    return {
+        type: ActionTypes.REGISTER_SUCCESS,
+        token: response.token
+    }
+}
+
+export const registerError = message => {
+    return {
+        type: ActionTypes.REGISTER_FAILURE,
+        message
+    }
+}
+
+export const registerUser = creds => dispatch => {
+    // We dispatch requestLogin to kickoff the call to the API
+    dispatch(requestRegister(creds))
+
+    return fetch(baseUrl + 'users/signup', {
+        method: 'POST',
+        headers: { 
+            'Content-Type':'application/json' 
+        },
+        body: JSON.stringify(creds)
+    })
+    .then(response => {
+            if (response.ok) {
+                return response;
+            } else {
+                const error = new Error(`Error ${response.status}: ${response.statusText}`);
+                error.response = response;
+                throw error;
+            }
+        },
+        error => { throw error; }
+    )
+    .then(response => response.json())
+    .then(response => {
+        if (response.success) {
+            // Dispatch the success action
+            dispatch(receiveRegister(response));
+        } else {
+            const error = new Error('Error ' + response.status);
+            error.response = response;
+            throw error;
+        }
+    })
+    .catch(error => dispatch(registerError(error.message)))
+};
+
 export const requestLogin = creds => {
     return {
         type: ActionTypes.LOGIN_REQUEST,

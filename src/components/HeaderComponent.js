@@ -11,6 +11,7 @@ class Header extends Component {
             isModalOpen: false
         };
         this.toggleModal = this.toggleModal.bind(this);
+        this.handleRegister = this.handleRegister.bind(this);
         this.handleLogin = this.handleLogin.bind(this);
         this.handleLogout = this.handleLogout.bind(this);
     }
@@ -27,6 +28,12 @@ class Header extends Component {
         this.props.loginUser({username: this.username.value, password: this.password.value});
         event.preventDefault();
 
+    }
+
+    handleRegister(event) {
+        this.toggleModal();
+        this.props.registerUser({username: this.id.value, password: this.pw.value, firstname: this.fn.value, lastname: this.ln.value});
+        event.preventDefault();
     }
 
     handleLogout() {
@@ -58,7 +65,7 @@ class Header extends Component {
                             <div>
                                 { !this.props.auth.isAuthenticated ?
                                     <Button outline onClick={this.toggleModal}>
-                                        <i className="fa fa-sign-in fa-lg" /> Login
+                                        <i className="fa fa-sign-in fa-lg" /> Login / Signup
                                         {this.props.auth.isFetching ?
                                             <span className="fa fa-spinner fa-pulse fa-fw"></span>
                                             : null
@@ -104,6 +111,33 @@ class Header extends Component {
                                 </Label>
                             </FormGroup>
                             <Button type="submit" value="submit" color="primary">Login</Button>
+                        </Form>
+                    </ModalBody>
+
+                    <ModalHeader>Sign Up</ModalHeader>
+                    <ModalBody>
+                        <Form onSubmit={this.handleRegister}>
+                            <FormGroup>
+                                <Label htmlFor="id">Username</Label>
+                                <Input type="text" id="id" name="id"
+                                    innerRef={input => this.id = input} />
+                            </FormGroup>
+                            <FormGroup>
+                                <Label htmlFor="pw">Password</Label>
+                                <Input type="text" id="pw" name="pw"
+                                    innerRef={input => this.pw = input} />
+                            </FormGroup>
+                            <FormGroup>
+                                <Label htmlFor="fn">Firstname</Label>
+                                <Input type="text" id="fn" name="fn"
+                                    innerRef={input => this.fn = input} />
+                            </FormGroup>
+                            <FormGroup>
+                                <Label htmlFor="ln">Lastname</Label>
+                                <Input type="text" id="ln" name="ln"
+                                    innerRef={input => this.ln = input} />
+                            </FormGroup>
+                            <Button type="submit" value="submit" color="primary">Sign Up</Button>
                         </Form>
                     </ModalBody>
                 </Modal>
